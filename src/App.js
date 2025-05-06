@@ -43,12 +43,15 @@ function App() {
     }
   ]
 
-  const [colaboradores, setColaboradores] = useState([])
-
   const aoNovoColaboradorAdicionado = (colaborador) => {
-    console.log(colaborador)
-    setColaboradores([...colaboradores, colaborador])
-  }
+    const novosFuncionarios = [...colaboradores, colaborador];
+    setColaboradores(novosFuncionarios);
+    localStorage.setItem('colaboradores', JSON.stringify(novosFuncionarios));
+  };
+
+  const [colaboradores, setColaboradores] = useState(
+    JSON.parse(localStorage.getItem('colaboradores')) || []
+  );
 
   return (
     <div className="App">
