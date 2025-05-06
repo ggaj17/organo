@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Banner from './componentes/Banner';
 import Formulario from './componentes/Formulario';
 import Time from './componentes/Time';
+import Rodape from './componentes/Rodape';
 
 function App() {
 
@@ -43,29 +44,29 @@ function App() {
     }
   ]
 
-  const aoNovoColaboradorAdicionado = (colaborador) => {
-    const novosFuncionarios = [...colaboradores, colaborador];
-    setColaboradores(novosFuncionarios);
-    localStorage.setItem('colaboradores', JSON.stringify(novosFuncionarios));
+  const aoNovoFuncionarioAdicionado = (funcionario) => {
+    const novosFuncionarios = [...funcionarios, funcionario];
+    setFuncionarios(novosFuncionarios);
+    localStorage.setItem('funcionarios', JSON.stringify(novosFuncionarios));
   };
 
-  const [colaboradores, setColaboradores] = useState(
-    JSON.parse(localStorage.getItem('colaboradores')) || []
+  const [funcionarios, setFuncionarios] = useState(
+    JSON.parse(localStorage.getItem('funcionarios')) || []
   );
 
   return (
     <div className="App">
       <Banner />
-      <Formulario times={times.map(time => time.nome)} aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}/>
+      <Formulario times={times.map(time => time.nome)} aoFuncionarioCadastrado={funcionario => aoNovoFuncionarioAdicionado(funcionario)}/>
 
       {times.map(time => <Time
         key={time.nome} 
         nome={time.nome} 
         corPrimaria={time.corPrimaria} 
         corSecundaria={time.corSecundaria} 
-        colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)} 
+        funcionarios={funcionarios.filter(funcionario => funcionario.time === time.nome)} 
       />)}
-
+      <Rodape />
     </div>
   );
 }
